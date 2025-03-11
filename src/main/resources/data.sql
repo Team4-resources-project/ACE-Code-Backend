@@ -8,3 +8,4 @@ INSERT INTO resources (title, fileUrl, category) VALUES
 ('ejercicio 1', '', 'exercises'),
 ('video 1', '', 'tutorials'),
 ('titulo 1', '', 'documentation');
+
