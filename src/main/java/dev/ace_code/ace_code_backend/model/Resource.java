@@ -16,12 +16,12 @@ public class Resource {
     private String category;
 
     public Resource(){
-        public Resource(String title, String fileUrl, String category) {
-            this.title = title;
-            this.fileUrl = fileUrl;
-            this.category = category;
-        }
 
+    }
+    public Resource(String title, String fileUrl, String category) {
+        this.title = title;
+        this.fileUrl = fileUrl;
+        this.category = category;
     }
 
     public Long getId() { return id; }
@@ -35,4 +35,3 @@ public class Resource {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 }
-
