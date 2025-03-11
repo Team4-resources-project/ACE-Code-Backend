@@ -43,4 +43,15 @@ public class ResourceService {
         .map(resource -> new File(resource.getFileUrl()))
         .orElse(null);
     }
+
+    public boolean deleteResource(Long id) {
+        return resourceRepository.findById(id).map(resource -> {
+            File file = new File(resource.getFileUrl());
+            if (file.exists()) {
+                file.delete();
+            }
+            resourceRepository.deleteById(id); 
+            return true;
+        }).orElse(false);
+    }
 }
