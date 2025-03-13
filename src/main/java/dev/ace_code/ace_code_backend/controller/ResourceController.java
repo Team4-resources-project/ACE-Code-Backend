@@ -20,7 +20,7 @@ import dev.ace_code.ace_code_backend.model.ResourceDTO;
 import dev.ace_code.ace_code_backend.service.ResourceService;
 
 @RestController
-@RequestMapping("/resources")
+@RequestMapping("/resources/upload")
 public class ResourceController {
     private final ResourceService resourceService;
 
@@ -29,13 +29,13 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @PostMapping("/upload")
+    @PostMapping
     public ResponseEntity<String> uploadResource(@RequestBody ResourceDTO resourceDTO) throws IOException {
         resourceService.storeResource(resourceDTO);
         return ResponseEntity.ok("Archivo subido con éxito");
     }
 
-    @DeleteMapping("/upload/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteResource(@PathVariable Long id) {
         boolean deleted = resourceService.deleteResource(id);
         if (deleted) {
