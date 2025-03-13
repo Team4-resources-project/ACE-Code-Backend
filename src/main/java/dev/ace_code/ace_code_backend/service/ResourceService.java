@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import dev.ace_code.ace_code_backend.model.Resource;
@@ -14,8 +13,8 @@ import dev.ace_code.ace_code_backend.model.ResourceDTO;
 
 @Service
 public class ResourceService {
-    @Value("${resource.upload-dir}")
     private final ResourceRepository resourceRepository;
+
 
     @Autowired // Comprobar si es 100% necesario
     public ResourceService(ResourceRepository resourceRepository) {
