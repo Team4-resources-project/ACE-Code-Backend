@@ -1,4 +1,4 @@
-package dev.ace_code.ace_code_backend.service;
+package dev.ace_code.ace_code_backend.repository;
 
 import java.util.List;
 
