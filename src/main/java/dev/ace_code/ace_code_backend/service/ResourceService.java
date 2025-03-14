@@ -99,5 +99,4 @@ public class ResourceService {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filePath.getFileName() + "\"")
                 .body(resource);
     }
-
 }
