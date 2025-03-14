@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import dev.ace_code.ace_code_backend.model.Resource;
+import dev.ace_code.ace_code_backend.model.ResourceModel;
 
-public interface ResourceRepository extends JpaRepository<Resource, Long>{
-    List<Resource> findByCategory(String category);
+public interface ResourceRepository extends JpaRepository<ResourceModel, Long>{
+    List<ResourceModel> findByCategory(String category);
 }
