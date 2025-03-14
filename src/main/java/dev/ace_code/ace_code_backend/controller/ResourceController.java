@@ -1,10 +1,15 @@
 package dev.ace_code.ace_code_backend.controller;
 
 import java.io.IOException;
+import org.springframework.http.HttpHeaders;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.ace_code.ace_code_backend.model.Resource;
+import dev.ace_code.ace_code_backend.model.ResourceModel;
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
 import dev.ace_code.ace_code_backend.service.ResourceService;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+
 @RestController
-@RequestMapping("/resources/upload")
+@RequestMapping("/resources/uploads")
 public class ResourceController {
     private final ResourceService resourceService;
 
@@ -46,27 +55,50 @@ public class ResourceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Resource>> getAllResources() {
-        List<Resource> resources = resourceService.getAllResources();
+    public ResponseEntity<List<ResourceModel>> getAllResources() {
+        List<ResourceModel> resources = resourceService.getAllResources();
         return ResponseEntity.ok(resources);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resource> getResourceById(@PathVariable Long id) {
-        Optional<Resource> resource = resourceService.getResourceById(id);
+    public ResponseEntity<ResourceModel> getResourceById(@PathVariable Long id) {
+        Optional<ResourceModel> resource = resourceService.getResourceById(id);
         return resource.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(404).body(null));
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<Resource>> getResourcesByCategory(@PathVariable String category) {
-        List<Resource> resources = resourceService.getResourcesByCategory(category);
+    public ResponseEntity<List<ResourceModel>> getResourcesByCategory(@PathVariable String category) {
+        List<ResourceModel> resources = resourceService.getResourcesByCategory(category);
         return ResponseEntity.ok(resources);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateResource(@PathVariable Long id, @RequestBody ResourceDTO resourceDTO) {
-        Optional<Resource> updatedResource = resourceService.updateResource(id, resourceDTO);
+        Optional<ResourceModel> updatedResource = resourceService.updateResource(id, resourceDTO);
         return updatedResource.map(resource -> ResponseEntity.ok("Recurso actualizado con éxito"))
                 .orElseGet(() -> ResponseEntity.status(404).body("Recurso no encontrado"));
+    }
+
+    @GetMapping("/files/{filename}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("uploads").resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+        
+             if (resource.exists() && resource.isReadable()) {
+                String contentType = Files.probeContentType(filePath);
+                if (contentType == null) {
+                    contentType = "application/octet-stream";
+                }
+            
+                return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                        .body(resource);
+            }
+        } catch (IOException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

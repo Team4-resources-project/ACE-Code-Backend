@@ -1,10 +1,15 @@
 package dev.ace_code.ace_code_backend.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name="resources")
-public class Resource {
+public class ResourceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +20,10 @@ public class Resource {
     private String fileUrl;
     private String category;
 
-    public Resource(){
+    public ResourceModel(){
 
     }
-    public Resource(String title, String fileUrl, String category) {
+    public ResourceModel(String title, String fileUrl, String category) {
         this.title = title;
         this.fileUrl = fileUrl;
         this.category = category;

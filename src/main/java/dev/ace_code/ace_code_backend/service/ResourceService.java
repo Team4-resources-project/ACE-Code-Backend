@@ -8,26 +8,26 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.ace_code.ace_code_backend.model.Resource;
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
+import dev.ace_code.ace_code_backend.model.ResourceModel;
 
 @Service
 public class ResourceService {
     private final ResourceRepository resourceRepository;
 
 
-    @Autowired // Comprobar si es 100% necesario
+    @Autowired
     public ResourceService(ResourceRepository resourceRepository) {
         this.resourceRepository = resourceRepository;
     }
 
-    public Resource storeResource(ResourceDTO resourceDTO) throws IOException {
-        Resource resource = new Resource(resourceDTO.getTitle(), resourceDTO.getFileUrl(), resourceDTO.getCategory());
+    public ResourceModel storeResource(ResourceDTO resourceDTO) throws IOException {
+        ResourceModel resource = new ResourceModel(resourceDTO.getTitle(), resourceDTO.getFileUrl(), resourceDTO.getCategory());
         return resourceRepository.save(resource);
     }
 
     public boolean deleteResource(Long id) {
-        Optional<Resource> resource = resourceRepository.findById(id);
+        Optional<ResourceModel> resource = resourceRepository.findById(id);
         if (resource.isPresent()) {
             resourceRepository.delete(resource.get());
             return true;
@@ -35,22 +35,22 @@ public class ResourceService {
         return false;
     }
 
-    public List<Resource> getAllResources() {
+    public List<ResourceModel> getAllResources() {
         return resourceRepository.findAll();
     }
 
-    public Optional<Resource> getResourceById(Long id) {
+    public Optional<ResourceModel> getResourceById(Long id) {
         return resourceRepository.findById(id);
     }
 
-    public List<Resource> getResourcesByCategory(String category) {
+    public List<ResourceModel> getResourcesByCategory(String category) {
         return resourceRepository.findByCategory(category);
     }
 
-    public Optional<Resource> updateResource(Long id, ResourceDTO resourceDTO) {
-        Optional<Resource> existingResource = resourceRepository.findById(id);
+    public Optional<ResourceModel> updateResource(Long id, ResourceDTO resourceDTO) {
+        Optional<ResourceModel> existingResource = resourceRepository.findById(id);
         if (existingResource.isPresent()) {
-            Resource resource = existingResource.get();
+            ResourceModel resource = existingResource.get();
             resource.setTitle(resourceDTO.getTitle());
             resource.setFileUrl(resourceDTO.getFileUrl());
             resource.setCategory(resourceDTO.getCategory());
