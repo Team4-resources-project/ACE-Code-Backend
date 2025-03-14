@@ -1,15 +1,11 @@
 package dev.ace_code.ace_code_backend.controller;
 
 import java.io.IOException;
-import org.springframework.http.HttpHeaders;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.ace_code.ace_code_backend.model.ResourceModel;
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
+import dev.ace_code.ace_code_backend.model.ResourceModel;
 import dev.ace_code.ace_code_backend.service.ResourceService;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 
 @RestController
@@ -78,27 +71,10 @@ public class ResourceController {
         return updatedResource.map(resource -> ResponseEntity.ok("Recurso actualizado con éxito"))
                 .orElseGet(() -> ResponseEntity.status(404).body("Recurso no encontrado"));
     }
-
+    
     @GetMapping("/files/{filename}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        try {
-            Path filePath = Paths.get("uploads").resolve(filename).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-        
-             if (resource.exists() && resource.isReadable()) {
-                String contentType = Files.probeContentType(filePath);
-                if (contentType == null) {
-                    contentType = "application/octet-stream";
-                }
-            
-                return ResponseEntity.ok()
-                        .contentType(MediaType.parseMediaType(contentType))
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
-                        .body(resource);
-            }
-        } catch (IOException | IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.notFound().build();
+        return resourceService.getFile(filename);
     }
+
 }

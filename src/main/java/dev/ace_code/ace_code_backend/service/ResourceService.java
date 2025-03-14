@@ -1,11 +1,20 @@
 package dev.ace_code.ace_code_backend.service;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
@@ -58,4 +67,36 @@ public class ResourceService {
         }
         return Optional.empty();
     }
+
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
+
+    public ResponseEntity<Resource> getFile(String filename) {
+        try {
+            Path filePath = getFilePath(filename);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                throw new FileNotFoundException("El archivo no existe o no es accesible.");
+            }
+
+            return buildResponse(resource, filePath);
+        } catch (IOException | IllegalArgumentException e) {
+            throw new RuntimeException("Error al obtener el archivo", e);
+        }
+    }
+
+    private Path getFilePath(String filename) {
+        return Paths.get(UPLOAD_DIR, filename).normalize();
+    }
+
+    private ResponseEntity<Resource> buildResponse(Resource resource, Path filePath) throws IOException {
+        String contentType = Files.probeContentType(filePath);
+        contentType = (contentType != null) ? contentType : "application/pdf";
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filePath.getFileName() + "\"")
+                .body(resource);
+    }
+
 }
