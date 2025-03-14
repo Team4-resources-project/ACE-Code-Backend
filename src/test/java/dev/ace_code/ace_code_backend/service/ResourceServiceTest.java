@@ -30,9 +30,12 @@ public class ResourceServiceTest {
     @InjectMocks
     private ResourceService resourceService;
 
+    private ResourceModel resource;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        resource = new ResourceModel("title", "url", "documentation");
     }
 
     @Test
@@ -59,7 +62,6 @@ public class ResourceServiceTest {
     public void deleteResourceTest() {
 
         Long resourceId = 1L;
-        ResourceModel resource = new ResourceModel("title", "url", "category");
 
         when(resourceRepository.findById(resourceId)).thenReturn(Optional.of(resource));
 
@@ -71,10 +73,10 @@ public class ResourceServiceTest {
 
     @Test
     @DisplayName("Test que comprueba la lógica para obtener todos los archivos")
-    void getAllResourcesTest() {
+    public void getAllResourcesTest() {
 
         List<ResourceModel> resources = List.of(
-            new ResourceModel("title1", "url1", "documentation"),
+            resource,
             new ResourceModel("title2", "url2", "documentation")
         );
 
@@ -84,5 +86,18 @@ public class ResourceServiceTest {
 
         assertThat(result).isNotEmpty().hasSize(2);
         verify(resourceRepository, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Test que comprueba la lógica para obtener un archivo por id")
+    public void getResourceByIdTest() {
+        Long resourceId = 1L;
+
+        when(resourceRepository.findById(resourceId)).thenReturn(Optional.of(resource));
+
+        Optional<ResourceModel> result = resourceService.getResourceById(resourceId);
+
+        assertThat(result).isPresent().contains(resource);
+        verify(resourceRepository, times(1)).findById(resourceId);
     }
 }
