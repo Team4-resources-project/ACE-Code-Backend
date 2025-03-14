@@ -91,6 +91,7 @@ public class ResourceServiceTest {
     @Test
     @DisplayName("Test que comprueba la lógica para obtener un archivo por id")
     public void getResourceByIdTest() {
+        
         Long resourceId = 1L;
 
         when(resourceRepository.findById(resourceId)).thenReturn(Optional.of(resource));
@@ -99,5 +100,23 @@ public class ResourceServiceTest {
 
         assertThat(result).isPresent().contains(resource);
         verify(resourceRepository, times(1)).findById(resourceId);
+    }
+
+    @Test
+    @DisplayName("Test que comprueba la lógica para obtener archivos por categorías")
+    public void getResourcesByCategoryTest() {
+        
+        String category = "documentation";
+        List<ResourceModel> resources = List.of(
+            resource,
+            new ResourceModel("title2", "url2", category)
+        );
+
+        when(resourceRepository.findByCategory(category)).thenReturn(resources);
+
+        List<ResourceModel> result = resourceService.getResourcesByCategory(category);
+
+        assertThat(result).isNotEmpty().hasSize(2);
+        verify(resourceRepository, times(1)).findByCategory(category);
     }
 }
