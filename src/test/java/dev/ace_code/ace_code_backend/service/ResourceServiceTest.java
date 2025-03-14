@@ -3,6 +3,7 @@ package dev.ace_code.ace_code_backend.service;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -167,5 +169,16 @@ public class ResourceServiceTest {
         assertThat(response.getHeaders().getContentDisposition().toString()).contains(filename);
 
         Files.deleteIfExists(filePath);
+    }
+
+    @Test
+    @DisplayName("Test que comprueba la lógica para obtener un archivo que no existe")
+    public void getFileErrorTest() throws IOException {
+
+        String filename = "null.pdf";
+
+        assertThatThrownBy(() -> resourceService.getFile(filename))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Error al obtener el archivo");
     }
 }
