@@ -20,9 +20,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -180,5 +182,25 @@ public class ResourceServiceTest {
         assertThatThrownBy(() -> resourceService.getFile(filename))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("Error al obtener el archivo");
+    }
+
+    @Test
+    @DisplayName("Test que verifica que contentType toma el valor application/pdf si es null")
+    public void getFileNullTest() throws IOException {
+
+        String filename = "test.pdf";
+        Path filePath = Paths.get(System.getProperty("user.dir"), "uploads", filename);
+        Files.createDirectories(filePath.getParent());
+        Files.createFile(filePath);
+
+        try (MockedStatic<Files> mockedFiles = mockStatic(Files.class)) {
+            mockedFiles.when(() -> Files.probeContentType(filePath)).thenReturn(null);
+
+            ResponseEntity<Resource> response = resourceService.getFile(filename);
+
+            assertThat(response.getHeaders().getContentType().toString()).isEqualTo("application/pdf");
+        }
+
+        Files.deleteIfExists(filePath);
     }
 }
