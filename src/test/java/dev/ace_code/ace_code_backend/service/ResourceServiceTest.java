@@ -1,6 +1,7 @@
 package dev.ace_code.ace_code_backend.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,5 +68,21 @@ public class ResourceServiceTest {
         assertThat(deleted).isTrue();
         verify(resourceRepository, times(1)).delete(resource);
     }
-    
+
+    @Test
+    @DisplayName("Test que comprueba la lógica para obtener todos los archivos")
+    void getAllResourcesTest() {
+
+        List<ResourceModel> resources = List.of(
+            new ResourceModel("title1", "url1", "documentation"),
+            new ResourceModel("title2", "url2", "documentation")
+        );
+
+        when(resourceRepository.findAll()).thenReturn(resources);
+
+        List<ResourceModel> result = resourceService.getAllResources();
+
+        assertThat(result).isNotEmpty().hasSize(2);
+        verify(resourceRepository, times(1)).findAll();
+    }
 }
