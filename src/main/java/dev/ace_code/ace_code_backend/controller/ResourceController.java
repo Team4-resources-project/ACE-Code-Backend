@@ -22,7 +22,7 @@ import dev.ace_code.ace_code_backend.service.ResourceService;
 
 
 @RestController
-@RequestMapping("/resources/uploads")
+@RequestMapping("/resources/upload")
 public class ResourceController {
     private final ResourceService resourceService;
 
