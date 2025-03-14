@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -119,4 +118,30 @@ public class ResourceServiceTest {
         assertThat(result).isNotEmpty().hasSize(2);
         verify(resourceRepository, times(1)).findByCategory(category);
     }
+
+    @Test
+    @DisplayName("Test que comprueba la lógica para actualizar el título, ruta o categoría de archivos")
+    public void updateResourceTest() {
+
+        Long resourceId = 1L;
+
+        ResourceDTO dto = new ResourceDTO();
+        dto.setTitle("new-title");
+        dto.setFileUrl("new-url");
+        dto.setCategory("new-category");
+
+        when(resourceRepository.findById(resourceId)).thenReturn(Optional.of(resource));
+        when(resourceRepository.save(any(ResourceModel.class))).thenReturn(resource);
+
+        Optional<ResourceModel> newResource = resourceService.updateResource(resourceId, dto);
+
+        assertThat(newResource).isPresent();
+        assertThat(newResource.get().getTitle()).isEqualTo(dto.getTitle());
+        assertThat(newResource.get().getFileUrl()).isEqualTo(dto.getFileUrl());
+        assertThat(newResource.get().getCategory()).isEqualTo(dto.getCategory());
+
+        verify(resourceRepository, times(1)).findById(resourceId);
+        verify(resourceRepository, times(1)).save(resource);
+    }
+
 }
