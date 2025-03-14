@@ -1,5 +1,12 @@
 package dev.ace_code.ace_code_backend.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -144,4 +151,21 @@ public class ResourceServiceTest {
         verify(resourceRepository, times(1)).save(resource);
     }
 
+    @Test
+    @DisplayName("Test que comprueba la lógica para obtener archivos y poder visualizarlos en front")
+    public void getFileTest() throws IOException {
+
+        String filename = "test.pdf";
+        Path filePath = Paths.get(System.getProperty("user.dir"), "uploads", filename);
+        Files.createDirectories(filePath.getParent());
+        Files.createFile(filePath);
+
+        ResponseEntity<Resource> response = resourceService.getFile(filename);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getBody()).isInstanceOf(UrlResource.class);
+        assertThat(response.getHeaders().getContentDisposition().toString()).contains(filename);
+
+        Files.deleteIfExists(filePath);
+    }
 }
