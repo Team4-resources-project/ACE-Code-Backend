@@ -1,4 +1,4 @@
-package dev.ace_code.ace_code_backend.controller;
+package dev.ace_code.ace_code_backend.Controller;
 
 import java.io.IOException;
 import java.util.List;
