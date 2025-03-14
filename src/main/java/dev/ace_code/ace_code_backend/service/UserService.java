@@ -37,10 +37,10 @@ public class UserService {
         User user = userRepository.findByUsername(username);
 
         if (user != null && user.getPassword().equals(password)) {
-            return true; // Login correcto
+            return true;
         }
 
-        return false; // Login incorrecto
+        return false;
     }
 }
 
