@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
 import dev.ace_code.ace_code_backend.model.ResourceModel;
+import dev.ace_code.ace_code_backend.repository.ResourceRepository;
 
 @Service
 public class ResourceService {
