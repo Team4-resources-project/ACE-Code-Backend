@@ -1,6 +1,7 @@
 package dev.ace_code.ace_code_backend.service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,4 +53,19 @@ public class ResourceServiceTest {
         assertThat(saved.getTitle()).isEqualTo(dto.getTitle());
         verify(resourceRepository).save(any(ResourceModel.class));
     }
+    @Test
+    @DisplayName("Test que comprueba la lógica para eliminar archivos")
+    public void deleteResourceTest() {
+
+        Long resourceId = 1L;
+        ResourceModel resource = new ResourceModel("title", "url", "category");
+
+        when(resourceRepository.findById(resourceId)).thenReturn(Optional.of(resource));
+
+        boolean deleted = resourceService.deleteResource(resourceId);
+
+        assertThat(deleted).isTrue();
+        verify(resourceRepository, times(1)).delete(resource);
+    }
+    
 }
