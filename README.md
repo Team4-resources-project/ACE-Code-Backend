@@ -1,118 +1,196 @@
-Plataforma de Recursos para Bootcamp (P6R) 🚀
-📅 Última actualización: 15 de marzo de 2025 👩‍💻 Propiedad de: Erika Montesinos Corell
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Recursos para Bootcamp (P6R)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #333;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        
+        h1 {
+            border-bottom: 4px solid #3498db;
+            display: inline-block;
+        }
+        
+        .emoji {
+            margin: 0 5px;
+        }
+        
+        .team-member {
+            margin: 10px 0;
+        }
+        
+        .feature-list {
+            margin-left: 20px;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Plataforma de Recursos para Bootcamp (P6R) 🚀</h1>
+        
+        <div class="metadata">
+            <span>📅 Última actualización: 15 de marzo de 2025</span>
+            <span>👩‍💻 Propiedad de: Erika Montesinos Corell</span>
+        </div>
 
-🌟 Descripción del Proyecto
-La Plataforma de Recursos para Bootcamp (P6R) es una solución web centralizada diseñada para apoyar a estudiantes, programadores junior e instructores en su aprendizaje y colaboración. Ofrece recursos educativos confiables y organizados, estructurados en una interfaz moderna y amigable.
+        <h2>🌟 Descripción del Proyecto</h2>
+        <p>La Plataforma de Recursos para Bootcamp (P6R) es una solución web centralizada diseñada para apoyar a estudiantes, 
+           programadores junior e instructores en su aprendizaje y colaboración. Ofrece recursos educativos confiables y 
+           organizados, estructurados en una interfaz moderna y amigable.</p>
 
-Los estudiantes podrán acceder a tutoriales, ejercicios prácticos, ejemplos de código y un banco de videos relacionados con tecnologías clave utilizadas en desarrollo full stack. Además, se fomenta la colaboración mediante el intercambio de recursos, comentarios y valoraciones.
+        <h2>🎯 Objetivo principal:</h2>
+        <p>Mejorar la experiencia de aprendizaje, reducir la curva de aprendizaje y crear una comunidad activa donde el 
+           conocimiento fluya de manera estructurada y efectiva.</p>
 
-🎯 Objetivo principal: Mejorar la experiencia de aprendizaje, reducir la curva de aprendizaje y crear una comunidad activa donde el conocimiento fluya de manera estructurada y efectiva.
+        <h2>👥 Equipo de Desarrollo</h2>
+        <div class="team-section">
+            <h3>ACE-Code Backend</h3>
+            <div class="team-member">Erica Montesinos - GitHub: erikamc99</div>
+            <div class="team-member">Carlota Menéndez Landa - GitHub: Carlotaml21</div>
+            <div class="team-member">Ana Belén Hernández - GitHub: AnaBHernandez</div>
 
-👥 Equipo de Desarrollo
-ACE-Code Backend
-Erica Montesinos - GitHub: erikamc99
+            <h3>ACE-Code Frontend</h3>
+            <div class="team-member">Ayelén Marcos Nacht - GitHub: Ayuik</div>
+            <div class="team-member">Alberto - GitHub: Algama17</div>
+            <div class="team-member">Eva - GitHub: Emagmunioz</div>
+        </div>
 
-Carlota Menéndez Landa - GitHub: Carlotaml21
+        <h2>📚 Funcionalidades Principales</h2>
+        
+        <h3>Frontend</h3>
+        <ul class="feature-list">
+            <li>Página principal con información sobre el bootcamp</li>
+            <li>Registro e inicio de sesión de usuarios</li>
+            <li>Panel de usuario con acceso a:
+                <ul>
+                    <li>Documentación con ejemplos de código</li>
+                    <li>Ejercicios prácticos organizados por temas</li>
+                    <li>Banco de videos educativos</li>
+                </ul>
+            </li>
+            <li>Sistema de subida de recursos (archivos o enlaces)</li>
+            <li>Diseño responsive para adaptarse a cualquier dispositivo</li>
+            <li>Sistema de comentarios y valoraciones</li>
+        </ul>
 
-Ana Belén Hernández - GitHub: AnaBHernandez
+        <h3>Backend</h3>
+        <ul class="feature-list">
+            <li>API REST para gestionar usuarios y recursos</li>
+            <li>Base de datos H2 para almacenar información de usuarios y recursos</li>
+            <li>Gestión de comentarios y valoraciones de recursos</li>
+            <li>Servicios para subida de archivos y enlaces externos</li>
+        </ul>
 
-ACE-Code Frontend
-Ayelén Marcos Nacht - GitHub: Ayuik
+        <h3>Testing</h3>
+        <ul class="feature-list">
+            <li>Pruebas unitarias con JUnit para validar funcionalidades clave</li>
+            <li>Pruebas de integración con Hamcrest para garantizar el correcto funcionamiento de la API REST</li>
+            <li>Cobertura unitaria actual: 46%, en expansión constante</li>
+        </ul>
 
-Alberto - GitHub: Algama17
+        <h2>🔑 MVP (Producto Mínimo Viable)</h2>
+        <ul class="feature-list">
+            <li>Acceso a recursos organizados por categorías para usuarios registrados</li>
+            <li>Subida y visualización de archivos y enlaces</li>
+            <li>Sistema de comentarios y valoraciones</li>
+            <li>Página principal con información básica para usuarios no registrados</li>
+            <li>Acceso exclusivamente online, sin posibilidad de descarga</li>
+        </ul>
 
-Eva - GitHub: Emagmunioz
+        <h2>📈 Criterios de Éxito</h2>
+        <ul class="feature-list">
+            <li>Plataforma completamente funcional con gestión de usuarios y recursos</li>
+            <li>Interfaz moderna, intuitiva y accesible</li>
+            <li>Backend escalable, seguro y eficiente</li>
+            <li>Validación de calidad mediante pruebas unitarias e integración</li>
+            <li>Feedback constante para mejoras continuas</li>
+        </ul>
 
-📚 Funcionalidades Principales
-Frontend
-✔️ Página principal con información sobre el bootcamp. ✔️ Registro e inicio de sesión de usuarios. ✔️ Panel de usuario con acceso a:
+        <h2>🛠️ Tecnologías Usadas</h2>
+        <h3>Frontend</h3>
+        <ul class="feature-list">
+            <li>React, HTML, CSS, JavaScript</li>
+        </ul>
 
-Documentación con ejemplos de código.
+        <h3>Backend</h3>
+        <ul class="feature-list">
+            <li>Java con Spring Boot</li>
+        </ul>
 
-Ejercicios prácticos organizados por temas.
+        <h3>Base de Datos</h3>
+        <ul class="feature-list">
+            <li>H2 (base de datos en memoria)</li>
+        </ul>
 
-Banco de videos educativos. ✔️ Sistema de subida de recursos (archivos o enlaces). ✔️ Diseño responsive para adaptarse a cualquier dispositivo. ✔️ Sistema de comentarios y valoraciones.
+        <h3>Testing</h3>
+        <ul class="feature-list">
+            <li>JUnit, Hamcrest</li>
+        </ul>
 
-Backend
-🔹 API REST para gestionar usuarios y recursos. 🔹 Base de datos H2 para almacenar información de usuarios y recursos. 🔹 Gestión de comentarios y valoraciones de recursos. 🔹 Servicios para subida de archivos y enlaces externos.
-
-Testing
-🛠️ Pruebas unitarias con JUnit para validar funcionalidades clave. 🛠️ Pruebas de integración con Hamcrest para garantizar el correcto funcionamiento de la API REST. 🛠️ Cobertura unitaria actual: 46%, en expansión constante.
-
-🔑 MVP (Producto Mínimo Viable)
-La primera versión de la plataforma incluye:
-
-Acceso a recursos organizados por categorías para usuarios registrados.
-
-Subida y visualización de archivos y enlaces.
-
-Sistema de comentarios y valoraciones.
-
-Página principal con información básica para usuarios no registrados.
-
-Acceso exclusivamente online, sin posibilidad de descarga.
-
-📈 Criterios de Éxito
-✔️ Plataforma completamente funcional con gestión de usuarios y recursos. ✔️ Interfaz moderna, intuitiva y accesible. ✔️ Backend escalable, seguro y eficiente. ✔️ Validación de calidad mediante pruebas unitarias e integración. ✔️ Feedback constante para mejoras continuas.
-
-🛠️ Tecnologías Usadas
-Frontend
-React, HTML, CSS, JavaScript
-
-Backend
-Java con Spring Boot
-
-Base de Datos
-H2 (base de datos en memoria)
-
-Testing
-JUnit, Hamcrest
-
-📂 Estructura del Proyecto
-plaintext
+        <h2>📂 Estructura del Proyecto</h2>
+        <pre class="code-block">
 /src
   ├── main
   │   ├── java/com/p6r           # Código fuente del backend
   │   ├── resources              # Configuración y archivos estáticos
   └── test                       # Tests unitarios y de integración
-/frontend                        # Código fuente del frontend
-⚙️ Instalación y Configuración
-Requisitos Previos
-JDK 17+
+/frontend                        # Código fuente del frontend</pre>
 
-Maven 3.6+
+        <h2>⚙️ Instalación y Configuración</h2>
+        <h3>Requisitos Previos</h3>
+        <ul class="feature-list">
+            <li>JDK 17+</li>
+            <li>Maven 3.6+</li>
+            <li>Node.js y npm (para el frontend)</li>
+        </ul>
 
-Node.js y npm (para el frontend)
-
-Pasos de Instalación
-Clona el repositorio:
-
-bash
-git clone <URL-DEL-REPOSITORIO>
+        <h3>Pasos de Instalación</h3>
+        <pre class="code-block" lang="bash">git clone <URL-DEL-REPOSITORIO>
 cd <NOMBRE-DEL-REPOSITORIO>
+
 Configura el archivo application.properties en el backend y .env en el frontend.
 
 Compila y ejecuta el backend:
-
-bash
 mvn clean install
 mvn spring-boot:run
-Inicia el frontend:
 
-bash
+Inicia el frontend:
 cd frontend
 npm install
 npm start
-Accede a la aplicación en http://localhost:3000.
 
-🤝 Cómo Contribuir
-Haz un fork del repositorio.
+Accede a la aplicación en http://localhost:3000.</pre>
 
-Crea una rama (git checkout -b nueva-funcionalidad).
-
-Realiza tus cambios y súbelos (git push origin nueva-funcionalidad).
-
-Abre un pull request para revisión.
-
-📝 Licencia
-Este proyecto es propiedad de Erika Montesinos Corell y su equipo. Todos los derechos reservados. No está permitida la distribución sin previa autorización.
+        <h2>🤝 Cómo Contribuir</h2>
+        <steps>
+            <step number="1">
+                <title>Haz un fork del repositorio</title>
+            </step>
+            <step
+            <step
