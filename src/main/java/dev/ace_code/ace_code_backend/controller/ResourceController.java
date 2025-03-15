@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
 import dev.ace_code.ace_code_backend.model.ResourceModel;
 import dev.ace_code.ace_code_backend.service.ResourceService;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @RestController
@@ -26,7 +26,6 @@ import dev.ace_code.ace_code_backend.service.ResourceService;
 public class ResourceController {
     private final ResourceService resourceService;
 
-    @Autowired
     public ResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
     }
@@ -77,4 +76,12 @@ public class ResourceController {
         return resourceService.getFile(filename);
     }
 
+    @GetMapping("/auth/{id}")
+    public ResponseEntity<String> getResource(@PathVariable Long id, HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
+        if (username == null) {
+            return ResponseEntity.status(401).body("No autorizado");
+        }
+        return ResponseEntity.ok("Recurso para el usuario: " + username);
+    }
 }
