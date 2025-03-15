@@ -14,15 +14,15 @@ Mejorar la experiencia de aprendizaje, reducir la curva de aprendizaje y crear u
 
 ### ACE-Code Backend
 
-* Erica Montesinos - GitHub: erikamc99
-* Carlota Menéndez Landa - GitHub: Carlotaml21
-* Ana Belén Hernández - GitHub: AnaBHernandez
+* [Erica Montesinos - GitHub](https://github.com/erikamc99)
+* [Carlota Menéndez Landa - GitHub](https://github.com/Carlotaml21)
+* [Ana Belén Hernández - GitHub](https://github.com/AnaBHernandez)
 
 ### ACE-Code Frontend
 
-* Ayelén Marcos Nacht - GitHub: Ayuik
-* Alberto - GitHub: Algama17
-* Eva - GitHub: Emagmunioz
+* [Ayelén Marcos Nacht - GitHub](https://github.com/Ayuik)
+* [Alberto - GitHub](https://github.com/Algama17)
+* [Eva - GitHub](https://github.com/Emagmunioz)
 
 ## Funcionalidades Principales
 
