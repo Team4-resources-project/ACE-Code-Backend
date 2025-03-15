@@ -1,5 +1,6 @@
-package dev.ace_code.ace_code_backend.Controller;
+package dev.ace_code.ace_code_backend.controller;
 
+import dev.ace_code.ace_code_backend.Controller.UserController;
 import dev.ace_code.ace_code_backend.model.User;
 import dev.ace_code.ace_code_backend.model.UserDTO;
 import dev.ace_code.ace_code_backend.service.UserService;
