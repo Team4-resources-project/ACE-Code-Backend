@@ -24,7 +24,9 @@ import dev.ace_code.ace_code_backend.repository.ResourceRepository;
 @Service
 public class ResourceService {
     private final ResourceRepository resourceRepository;
-
+    private static final String BASE_URL = "http://localhost:8080/resources/upload/files/";
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
+    
 
     @Autowired
     public ResourceService(ResourceRepository resourceRepository) {
@@ -32,7 +34,15 @@ public class ResourceService {
     }
 
     public ResourceModel storeResource(ResourceDTO resourceDTO) throws IOException {
-        ResourceModel resource = new ResourceModel(resourceDTO.getTitle(), resourceDTO.getFileUrl(), resourceDTO.getCategory());
+        
+        String fileName = resourceDTO.getFileUrl();
+
+        Path filePath = Paths.get(UPLOAD_DIR, fileName).normalize();
+        Files.createDirectories(filePath.getParent());
+
+        String fileUrl = BASE_URL + fileName;        
+        
+        ResourceModel resource = new ResourceModel(resourceDTO.getTitle(), fileUrl, resourceDTO.getCategory());
         return resourceRepository.save(resource);
     }
 
@@ -69,8 +79,6 @@ public class ResourceService {
         return Optional.empty();
     }
 
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
-
     public ResponseEntity<Resource> getFile(String filename) {
         try {
             Path filePath = getFilePath(filename);
@@ -92,7 +100,7 @@ public class ResourceService {
 
     private ResponseEntity<Resource> buildResponse(Resource resource, Path filePath) throws IOException {
         String contentType = Files.probeContentType(filePath);
-        contentType = (contentType != null) ? contentType : "application/pdf";
+        contentType = (contentType != null) ? contentType : "application/octet-stream";
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
