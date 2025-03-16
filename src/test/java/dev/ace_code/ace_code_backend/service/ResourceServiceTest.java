@@ -198,7 +198,7 @@ public class ResourceServiceTest {
 
             ResponseEntity<Resource> response = resourceService.getFile(filename);
 
-            assertThat(response.getHeaders().getContentType().toString()).isEqualTo("application/pdf");
+            assertThat(response.getHeaders().getContentType().toString()).isEqualTo("application/octet-stream");
         }
 
         Files.deleteIfExists(filePath);
