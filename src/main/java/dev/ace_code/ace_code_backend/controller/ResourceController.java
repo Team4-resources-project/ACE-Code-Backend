@@ -76,5 +76,4 @@ public class ResourceController {
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         return resourceService.getFile(filename);
     }
-
 }
