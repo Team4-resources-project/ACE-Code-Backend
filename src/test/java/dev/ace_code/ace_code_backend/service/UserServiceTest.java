@@ -73,4 +73,29 @@ class UserServiceTest {
         userService.deleteUser(userId);
         verify(userRepository, times(1)).deleteById(userId);
     }
+    @Test
+    void login_ShouldReturnTrue_WhenCredentialsAreCorrect() {
+        User user = new User("user1", "pass1");
+        when(userRepository.findByUsername("user1")).thenReturn(user);
+
+        boolean result = userService.login("user1", "pass1");
+        assertTrue(result);
+    }
+
+    @Test
+    void login_ShouldReturnFalse_WhenUserNotFound() {
+        when(userRepository.findByUsername("user1")).thenReturn(null);
+
+        boolean result = userService.login("user1", "pass1");
+        assertFalse(result);
+    }
+
+    @Test
+    void login_ShouldReturnFalse_WhenPasswordIsIncorrect() {
+        User user = new User("user1", "pass1");
+        when(userRepository.findByUsername("user1")).thenReturn(user);
+
+        boolean result = userService.login("user1", "wrongpass");
+        assertFalse(result);
+    }
 }
