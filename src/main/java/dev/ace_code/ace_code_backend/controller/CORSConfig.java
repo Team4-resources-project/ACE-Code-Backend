@@ -1,4 +1,4 @@
-package dev.ace_code.ace_code_backend.Controller;
+package dev.ace_code.ace_code_backend.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,11 +1,10 @@
-package dev.ace_code.ace_code_backend.Controller;
+package dev.ace_code.ace_code_backend.controller;
 
 import dev.ace_code.ace_code_backend.model.ResourceDTO;
 import dev.ace_code.ace_code_backend.model.ResourceModel;
 import dev.ace_code.ace_code_backend.service.ResourceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.support.Resource;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
