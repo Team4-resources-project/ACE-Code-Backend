@@ -2,6 +2,7 @@ package dev.ace_code.ace_code_backend.controller;
 
 import java.util.List;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
+import java.util.Date;
+import java.util.HashMap;
 
 import dev.ace_code.ace_code_backend.model.User;
 import dev.ace_code.ace_code_backend.model.UserDTO;
@@ -49,14 +56,37 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
-        boolean success = userService.login(userDTO.getUsername(), userDTO.getPassword());
+    public ResponseEntity<Map<String, String>> login(@RequestBody UserDTO userDTO) {
+    boolean success = userService.login(userDTO.getUsername(), userDTO.getPassword());
+    if (success) {
+        String token = JWT.create()
+                .withSubject(userDTO.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))
+                .sign(Algorithm.HMAC512("secret".getBytes()));
 
-        if (success) {
-            return ResponseEntity.ok("Login exitoso");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
-        }
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        response.put("message", "Inicio de sesión exitoso");
+
+        return ResponseEntity.ok(response);
+    } else {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Usuario o contraseña incorrectos");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
+}
 
+@PostMapping("/register")
+public ResponseEntity<Map<String, String>> register(@RequestBody UserDTO userDTO) {
+    boolean success = userService.register(userDTO.getUsername(), userDTO.getPassword());
+    if (success) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Usuario registrado correctamente.");
+        return ResponseEntity.ok(response);
+    } else {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Error al registrar el usuario.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+}
 }
